@@ -16,6 +16,11 @@ const app =express();
 
 config({path:"./config/config.env"})
 
+// app.use(cors({
+//   origin: "https://prashantverma.vercel.app", 
+//   credentials: true
+// }));
+
 app.use(cors({
     origin:[process.env.FRONTEND_URL],
     methods:["GET","POST","PUT","DELETE"],
@@ -32,6 +37,10 @@ app.use(
     tempFileDir: "/tmp/",
 })
 );
+
+app.get('/', (req, res) => {
+  res.send('hi everyone on my server');
+});
 
 app.use("/api/v1/user",userRouter);
 app.use("/api/v1/job",jobRouter);

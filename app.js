@@ -27,6 +27,8 @@ app.use(cors({
     credentials:true,
 }))
 
+connection();
+
 app.use(cookieParser()); 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -47,7 +49,6 @@ app.use("/api/v1/job",jobRouter);
 app.use("/api/v1/application",applicationRouter);
 
 newsLetterCron();
-connection();
 app.use(errorMiddleware)
 
 export default app;

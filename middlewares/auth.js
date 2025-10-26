@@ -5,7 +5,7 @@ import { User } from "../models/userSchema.js";
 
 // Middleware: Checks if user is logged in
 export const isAuthenticated = catchAsyncError(async (req, res, next) => {
-  const { token } = req.cookies;
+  const { token } = req.cookies.token;
 
   if (!token) {
     return next(new ErrorHandler("User is not authenticated.", 401));

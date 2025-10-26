@@ -5,14 +5,17 @@ import { User } from "../models/userSchema.js";
 
 // Middleware: Checks if user is logged in
 export const isAuthenticated = catchAsyncError(async (req, res, next) => {
-  const { token } = req.cookies.token;
+  // FIX: directly access the cookie safely
+  const token = req.cookies?.token;
 
   if (!token) {
     return next(new ErrorHandler("User is not authenticated.", 401));
   }
 
+  // Verify token
   const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
+  // Fetch user
   req.user = await User.findById(decoded.id);
 
   if (!req.user) {
